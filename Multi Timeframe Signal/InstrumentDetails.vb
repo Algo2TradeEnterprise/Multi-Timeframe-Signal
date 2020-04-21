@@ -42,16 +42,16 @@ Public Class InstrumentDetails
     <Display(Name:="Slab", Order:=3, AutoGenerateField:=True)>
     Public Property Slab As Decimal
 
-    <Display(Name:="Overall EMA", Order:=4, AutoGenerateField:=True)>
+    <Display(Name:="EMA", Order:=4, AutoGenerateField:=True)>
     Public Property OverallEMA As String
 
-    <Display(Name:="Overall Aroon", Order:=5, AutoGenerateField:=True)>
+    <Display(Name:="Aroon", Order:=5, AutoGenerateField:=True)>
     Public Property OverallAroon As String
 
-    <Display(Name:="Overall Supertrend", Order:=6, AutoGenerateField:=True)>
+    <Display(Name:="ST", Order:=6, AutoGenerateField:=True)>
     Public Property OverallSupertrend As String
 
-    <Display(Name:="Overall Fractal", Order:=7, AutoGenerateField:=True)>
+    <Display(Name:="Fractal", Order:=7, AutoGenerateField:=True)>
     Public Property OverallFractal As String
 
 

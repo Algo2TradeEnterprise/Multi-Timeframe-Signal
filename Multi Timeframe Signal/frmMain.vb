@@ -269,6 +269,25 @@ Public Class frmMain
             CType(e.Column, GridDateTimeColumn).Pattern = DateTimePattern.Custom
             CType(e.Column, GridDateTimeColumn).Format = "HH:mm:ss"
         End If
+        If e.Column.MappingName = "OriginatingInstrument" Then
+            e.Column.Width = 100
+        ElseIf e.Column.MappingName = "LastUpdateTime" Then
+            e.Column.Width = 65
+        ElseIf e.Column.MappingName = "ATR" Then
+            e.Column.Width = 45
+        ElseIf e.Column.MappingName = "Slab" Then
+            e.Column.Width = 45
+        ElseIf e.Column.MappingName = "OverallEMA" Then
+            e.Column.Width = 45
+        ElseIf e.Column.MappingName = "OverallAroon" Then
+            e.Column.Width = 45
+        ElseIf e.Column.MappingName = "OverallSupertrend" Then
+            e.Column.Width = 45
+        ElseIf e.Column.MappingName = "OverallFractal" Then
+            e.Column.Width = 45
+        ElseIf e.Column.MappingName.Contains("Minute") Then
+            e.Column.Width = 20
+        End If
     End Sub
 
     Private Sub sfdgvMain_QueryCellStyle(sender As Object, e As QueryCellStyleEventArgs) Handles sfdgvMain.QueryCellStyle
@@ -278,34 +297,43 @@ Public Class frmMain
             e.Column.MappingName.Contains("Fractal") Then
             If e.DisplayText = "White" Then
                 e.Style.BackColor = Color.White
-                'e.Style.TextColor = Color.White
+                e.Style.TextColor = Color.White
             ElseIf e.DisplayText = "Green" Then
-                e.Style.BackColor = Color.LightGreen
-                'e.Style.TextColor = Color.DarkSlateBlue
+                e.Style.BackColor = Color.Green
+                e.Style.TextColor = Color.Green
             ElseIf e.DisplayText = "Red" Then
-                e.Style.BackColor = Color.IndianRed
-                'e.Style.TextColor = Color.DarkSlateBlue
+                e.Style.BackColor = Color.Red
+                e.Style.TextColor = Color.Red
             End If
         End If
         If e.Column.MappingName.Contains("Minute") Then
             If e.DisplayText = "-4" Then
-                e.Style.BackColor = Color.DarkRed
+                e.Style.BackColor = Color.FromArgb(255, 0, 0)
+                e.Style.TextColor = Color.FromArgb(255, 0, 0)
             ElseIf e.DisplayText = "-3" Then
-                e.Style.BackColor = Color.Red
+                e.Style.BackColor = Color.FromArgb(236, 69, 69)
+                e.Style.TextColor = Color.FromArgb(236, 69, 69)
             ElseIf e.DisplayText = "-2" Then
-                e.Style.BackColor = Color.MediumVioletRed
+                e.Style.BackColor = Color.FromArgb(255, 92, 92)
+                e.Style.TextColor = Color.FromArgb(255, 92, 92)
             ElseIf e.DisplayText = "-1" Then
-                e.Style.BackColor = Color.Red
+                e.Style.BackColor = Color.FromArgb(255, 133, 133)
+                e.Style.TextColor = Color.FromArgb(255, 133, 133)
             ElseIf e.DisplayText = "0" Then
-                e.Style.BackColor = Color.White
+                e.Style.BackColor = Color.FromArgb(255, 255, 255)
+                e.Style.TextColor = Color.FromArgb(255, 255, 255)
             ElseIf e.DisplayText = "1" Then
-                e.Style.BackColor = Color.LightGreen
+                e.Style.BackColor = Color.FromArgb(0, 255, 0)
+                e.Style.TextColor = Color.FromArgb(0, 255, 0)
             ElseIf e.DisplayText = "2" Then
-                e.Style.BackColor = Color.LawnGreen
+                e.Style.BackColor = Color.FromArgb(40, 206, 40)
+                e.Style.TextColor = Color.FromArgb(40, 206, 40)
             ElseIf e.DisplayText = "3" Then
-                e.Style.BackColor = Color.Green
+                e.Style.BackColor = Color.FromArgb(26, 166, 26)
+                e.Style.TextColor = Color.FromArgb(26, 166, 26)
             ElseIf e.DisplayText = "4" Then
-                e.Style.BackColor = Color.DarkGreen
+                e.Style.BackColor = Color.FromArgb(0, 128, 0)
+                e.Style.TextColor = Color.FromArgb(0, 128, 0)
             End If
         End If
     End Sub
@@ -438,13 +466,20 @@ Public Class frmMain
                         If runningStock.Key = "NIFTY" Then cashStockName = "NIFTY 50"
                         If cashStockList.ContainsKey(cashStockName) AndAlso atrStockList.ContainsKey(cashStockName) Then
                             canceller.Token.ThrowIfCancellationRequested()
+                            'Dim workingInstrument As InstrumentDetails = New InstrumentDetails(settings) With {
+                            '                                                .OriginatingInstrument = runningStock.Key,
+                            '                                                .CashTradingSymbol = cashStockName,
+                            '                                                .CashInstrumentToken = cashStockList(cashStockName),
+                            '                                                .ATR = atrStockList(cashStockName)(0),
+                            '                                                .Slab = atrStockList(cashStockName)(1)
+                            '                                            }
                             Dim workingInstrument As InstrumentDetails = New InstrumentDetails(settings) With {
-                                                                            .OriginatingInstrument = runningStock.Key,
-                                                                            .CashTradingSymbol = cashStockName,
-                                                                            .CashInstrumentToken = cashStockList(cashStockName),
-                                                                            .ATR = atrStockList(cashStockName)(0),
-                                                                            .Slab = atrStockList(cashStockName)(1)
-                                                                        }
+                                                                                .OriginatingInstrument = runningStock.Key,
+                                                                                .CashTradingSymbol = cashStockName,
+                                                                                .CashInstrumentToken = cashStockList(cashStockName),
+                                                                                .ATR = 1,
+                                                                                .Slab = 2
+                                                                            }
 
                             If workableStockList Is Nothing Then workableStockList = New List(Of InstrumentDetails)
                             workableStockList.Add(workingInstrument)
