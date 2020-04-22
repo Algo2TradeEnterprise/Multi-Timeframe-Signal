@@ -126,6 +126,7 @@ Partial Class frmMain
         Me.sfdgvMain.Margin = New System.Windows.Forms.Padding(4)
         Me.sfdgvMain.Name = "sfdgvMain"
         Me.sfdgvMain.PasteOption = Syncfusion.WinForms.DataGrid.Enums.PasteOptions.None
+        Me.sfdgvMain.SelectionMode = Syncfusion.WinForms.DataGrid.Enums.GridSelectionMode.None
         Me.sfdgvMain.Size = New System.Drawing.Size(1363, 504)
         Me.sfdgvMain.TabIndex = 35
         Me.sfdgvMain.Text = "SfDataGrid1"
